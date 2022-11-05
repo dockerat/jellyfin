@@ -23,6 +23,9 @@ RUN set -ex \
     # 安装Quick Sync硬解
     && apt install -y intel-media-va-driver-non-free vainfo \
     \
+    # 安装中文字体
+    && apt install -y fonts-noto-cjk-extra \
+    \
     \
     \
     # 设置时区为上海
