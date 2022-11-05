@@ -1,0 +1,39 @@
+kind: pipeline
+type: docker
+name: 动态域名解析
+
+
+clone:
+  disable: true
+
+
+steps:
+  - name: 代码
+    image: ccr.ccs.tencentyun.com/dronestock/git
+
+  - name: 发布
+    image: ccr.ccs.tencentyun.com/dronestock/docker
+    privileged: true
+    volumes:
+      - name: docker
+        path: /var/lib/docker
+    environment:
+      PASSWORD_DOCKER:
+        from_secret: token_docker
+      PASSWORD_CCR:
+        from_secret: password_tencentyun_ccr
+    settings:
+      repository: storezhang/ddns
+      registries:
+        - username: storezhang
+          password: $${PASSWORD_DOCKER}
+        - hostname: ccr.ccs.tencentyun.com
+          username: "160290688"
+          password: $${PASSWORD_CCR}
+          required: true
+
+
+volumes:
+  - name: docker
+    host:
+      path: /var/lib/cache/docker
