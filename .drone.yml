@@ -29,8 +29,6 @@ steps:
           username: "160290688"
           password: $${PASSWORD_CCR}
           required: true
-        - username: storezhang
-          password: $${PASSWORD_DOCKER}
 
 
 volumes:
