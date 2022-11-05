@@ -23,7 +23,7 @@ steps:
       PASSWORD_CCR:
         from_secret: password_tencentyun_ccr
     settings:
-      repository: dockerat/jellyfin
+      repository: storezhang/jellyfin
       registries:
         - username: storezhang
           password: $${PASSWORD_DOCKER}
