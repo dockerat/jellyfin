@@ -1,29 +1,37 @@
-FROM ccr.ccs.tencentyun.com/storezhang/alpine:3.15.6
+FROM linuxserver/jellyfin:10.8.7
 
 
 LABEL author="storezhang<华寅>"
 LABEL email="storezhang@gmail.com"
 LABEL qq="160290688"
 LABEL wechat="storezhang"
-LABEL description="动态域名解析，支持阿里云、百度云、腾讯云、DNSPod等"
-
-
-# 复制文件
-COPY docker /
+LABEL description="Jellyfin镜像，集成常用功能：1、Intel Quick Sync硬解"
 
 
 RUN set -ex \
     \
     \
     \
-    && apk update \
+    # 替换国内源
+    && sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list \
+    && sed -i 's/cn.archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list \
+    && sed -i 's/security.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list \
+    && apt clean -y \
+    && apt update -y \
+    && apt upgrade -y \
     \
-    # 增加执行权限，防止出现因为无执行权限导致在Docker内部无法运行的问题
-    && chmod +x /etc/s6/ddns/* \
-    \
-    # 增加执行权限
-    && chmod +x /opt/storezhang/ddns \
+    # 安装Quick Sync硬解
+    && apt install -y intel-media-va-driver-non-free vainfo \
     \
     \
     \
-    && rm -rf /var/cache/apk/*
+    # 设置时区为上海
+    && ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime \
+    && echo ${TZ} > /etc/timezone \
+    \
+    \
+    \
+    # 清理镜像，减少无用包
+    && apt autoremove -y \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt autoclean
