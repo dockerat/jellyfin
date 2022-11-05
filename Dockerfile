@@ -8,6 +8,9 @@ LABEL wechat="storezhang"
 LABEL description="Jellyfin镜像，集成常用功能：1、Intel Quick Sync硬解；2、增加中文字体解决乱码问题"
 
 
+ENV TZ Asia/Shanghai
+
+
 RUN set -ex \
     \
     \
