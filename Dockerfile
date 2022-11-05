@@ -29,7 +29,7 @@ RUN set -ex \
     && apt install -y intel-media-va-driver-non-free vainfo \
     \
     # 安装OpenCL色调映射驱动
-    && apt install intel-opencl-icd \
+    && apt install -y intel-opencl-icd \
     \
     # 安装中文字体
     && apt install -y fonts-noto-cjk-extra \
