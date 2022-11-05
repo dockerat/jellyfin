@@ -25,12 +25,12 @@ steps:
     settings:
       repository: storezhang/jellyfin
       registries:
-        - username: storezhang
-          password: $${PASSWORD_DOCKER}
         - hostname: ccr.ccs.tencentyun.com
           username: "160290688"
           password: $${PASSWORD_CCR}
           required: true
+        - username: storezhang
+          password: $${PASSWORD_DOCKER}
 
 
 volumes:
