@@ -1,4 +1,4 @@
-FROM linuxserver/jellyfin:10.11.10
+FROM linuxserver/jellyfin:10.11.11
 
 
 LABEL author="storezhang<华寅>"
